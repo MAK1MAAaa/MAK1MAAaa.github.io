@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fffaf0" />
+    <meta name="description" content="MAK1MAAaa 的公开项目与游戏记录。" />
+    <title>MAK1MAAaa · 项目与游戏</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="site-shell">
+      <header class="site-header" id="top">
+        <a class="brand" href="#top" aria-label="返回页面顶部">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-copy">
+            <strong>MAK1MAAaa</strong>
+            <small>项目与游戏</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="页面导航">
+          <a href="#projects">项目</a>
+          <a href="#games">游戏</a>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <section class="section-shell section-block section-first" id="projects" aria-labelledby="projects-title">
+          <div class="section-heading">
+            <p class="section-index">01</p>
+            <div>
+              <h1 id="projects-title">项目</h1>
+              <p>公开项目。</p>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card project-card-featured">
+              <div class="project-head">
+                <span class="project-no">01</span>
+                <span class="project-state">视觉工程</span>
+              </div>
+              <h2>电力巡检图像智能检测系统</h2>
+              <p class="project-summary">设备与缺陷检测系统，包含训练、推理服务、前端和 GPU 部署。</p>
+              <ul class="project-points">
+                <li>支持 PyTorch、ONNX、TensorRT，以及 FP32、FP16、INT8。</li>
+                <li>使用 CUDA 后处理；公开记录中传输开销降低约 90%。</li>
+              </ul>
+              <div class="tag-list" aria-label="项目技术栈">
+                <span>Python</span><span>C++17</span><span>CUDA</span><span>TensorRT</span><span>Vue 3</span><span>Docker</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://github.com/oroiteS/image_detection"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="在 GitHub 查看电力巡检图像智能检测系统"
+              >查看仓库 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="project-card">
+              <div class="project-head">
+                <span class="project-no">02</span>
+                <span class="project-state">智能应用</span>
+              </div>
+              <h2>Rasa 电商智能客服系统</h2>
+              <p class="project-summary">电商客服系统，整合 Rasa、FastAPI、数据服务与 LoRA 推理。</p>
+              <ul class="project-points">
+                <li>包含商品、订单、知识库和附件处理。</li>
+                <li>提供可重复 benchmark 和中文报告。</li>
+              </ul>
+              <div class="tag-list" aria-label="项目技术栈">
+                <span>Rasa</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>LoRA</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://github.com/MAK1MAAaa/Rasa-EC-bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="在 GitHub 查看 Rasa 电商智能客服系统"
+              >查看仓库 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="project-card">
+              <div class="project-head">
+                <span class="project-no">03</span>
+                <span class="project-state">数据分析</span>
+              </div>
+              <h2>Bilibili 视频用户留存分析</h2>
+              <p class="project-summary">公开视频与评论数据的抓取、存储、分析和可视化。</p>
+              <ul class="project-points">
+                <li>使用 MongoDB、MySQL 和情感分析。</li>
+                <li>保留抓取与分析测试脚本。</li>
+              </ul>
+              <div class="tag-list" aria-label="项目技术栈">
+                <span>Python</span><span>pandas</span><span>SQLAlchemy</span><span>MongoDB</span><span>MySQL</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://github.com/MAK1MAAaa/Retention"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="在 GitHub 查看 Bilibili 视频用户留存分析"
+              >查看仓库 <span aria-hidden="true">↗</span></a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-shell section-block" id="games" aria-labelledby="games-title">
+          <div class="section-heading">
+            <p class="section-index">02</p>
+            <div>
+              <h2 id="games-title">游戏</h2>
+              <p>常玩的游戏。</p>
+            </div>
+          </div>
+
+          <div class="game-grid">
+            <article class="game-card">
+              <span class="game-type">街机音乐游戏</span>
+              <h3>CHUNITHM</h3>
+              <p>世嘉街机音乐游戏，支持店内联机。</p>
+              <a class="game-link" href="https://chunithm.sega.jp/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">街机音乐游戏</span>
+              <h3>オンゲキ</h3>
+              <p>使用摇杆和按键操作的世嘉街机音乐游戏。</p>
+              <a class="game-link" href="https://ongeki.sega.jp/index.html" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">音乐游戏</span>
+              <h3>プロジェクトセカイ</h3>
+              <p>包含剧情、节奏游戏、3DMV 和虚拟 Live 的移动端音游。</p>
+              <a class="game-link" href="https://pjsekai.sega.jp/system/index.html" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">节奏游戏</span>
+              <h3>vivid/stasis</h3>
+              <p>结合剧情的节奏游戏，提供多种难度和自定义选项。</p>
+              <a class="game-link" href="https://store.steampowered.com/app/2093940/" target="_blank" rel="noopener noreferrer">页面 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">弹幕 Roguelike</span>
+              <h3>Enter the Gungeon</h3>
+              <p>以射击、翻滚和随机地牢为核心的弹幕地牢游戏。</p>
+              <a class="game-link" href="https://enterthegungeon.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">魔法 Roguelite</span>
+              <h3>Noita</h3>
+              <p>每个像素都参与物理模拟的魔法 Roguelite。</p>
+              <a class="game-link" href="https://noitagame.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">动作 Roguelike</span>
+              <h3>Dungreed</h3>
+              <p>横版 Roguelike 地牢动作游戏。</p>
+              <a class="game-link" href="https://teamhoray.com/games/dungreed" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">平台游戏</span>
+              <h3>Celeste</h3>
+              <p>围绕登顶 Celeste Mountain 的高精度平台游戏。</p>
+              <a class="game-link" href="https://www.celestegame.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+
+            <article class="game-card">
+              <span class="game-type">开放世界 ARPG</span>
+              <h3>鸣潮</h3>
+              <p>开放世界 ARPG。</p>
+              <a class="game-link" href="https://wutheringwaves.kurogames.com/jp/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>MAK1MAAaa</p>
+        <a href="https://github.com/MAK1MAAaa" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </body>
+</html>
