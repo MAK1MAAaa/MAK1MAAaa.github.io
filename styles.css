@@ -80,6 +80,15 @@ body {
   transform: scale(1);
 }
 
+.ambient-particles {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 ::selection {
   background: rgba(240, 140, 192, 0.45);
   color: #fff;
@@ -129,6 +138,19 @@ a:focus-visible {
   backdrop-filter: blur(14px) saturate(140%);
 }
 
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--teal), var(--lilac), var(--pink));
+  box-shadow: 0 0 10px rgba(134, 227, 207, 0.7);
+  pointer-events: none;
+}
+
 @supports (animation-timeline: scroll()) {
   .site-header {
     animation: header-solidify linear both;
@@ -169,7 +191,18 @@ a:focus-visible {
   border-radius: 2px;
   background: var(--teal);
   box-shadow: 5px 5px 0 rgba(240, 140, 192, 0.8);
+  animation: mark-breathe 4.2s ease-in-out infinite;
   transition: transform 300ms var(--ease);
+}
+
+@keyframes mark-breathe {
+  0%,
+  100% {
+    box-shadow: 5px 5px 0 rgba(240, 140, 192, 0.8), 0 0 0 rgba(134, 227, 207, 0);
+  }
+  50% {
+    box-shadow: 5px 5px 0 rgba(240, 140, 192, 0.95), 0 0 14px rgba(134, 227, 207, 0.55);
+  }
 }
 
 .brand:hover .brand-mark {
@@ -230,9 +263,14 @@ a:focus-visible {
   font-size: 0.66rem;
 }
 
-.site-nav a:hover {
+.site-nav a:hover,
+.site-nav a.is-current {
   background: rgba(255, 255, 255, 0.08);
   color: var(--ink);
+}
+
+.site-nav a.is-current {
+  box-shadow: inset 0 0 0 1px rgba(134, 227, 207, 0.32);
 }
 
 .site-nav .nav-github {
@@ -270,12 +308,15 @@ a:focus-visible {
   letter-spacing: 0.24em;
   text-shadow: 0 1px 10px rgba(4, 12, 26, 0.9);
   gap: 0.7rem;
+  animation: hero-rise 0.75s var(--ease) 0.05s both;
 }
 
 .hero-eyebrow span {
   width: 28px;
   height: 1px;
   background: currentColor;
+  transform-origin: left;
+  animation: line-draw 0.7s var(--ease) 0.2s both;
 }
 
 .hero h1 {
@@ -285,12 +326,16 @@ a:focus-visible {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
-  background: linear-gradient(100deg, #ffffff 0%, #e8defa 40%, var(--teal) 75%, var(--pink) 110%);
+  background: linear-gradient(100deg, #ffffff 0%, #e8defa 30%, var(--teal) 55%, var(--pink) 80%, #ffffff 100%);
+  background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
   filter: drop-shadow(0 4px 24px rgba(4, 12, 26, 0.6));
+  animation:
+    hero-rise 0.8s var(--ease) 0.14s both,
+    title-shimmer 8s ease-in-out infinite alternate;
 }
 
 .hero-lead {
@@ -299,6 +344,7 @@ a:focus-visible {
   color: var(--ink-soft);
   font-size: clamp(1rem, 1.6vw, 1.15rem);
   text-shadow: 0 2px 12px rgba(4, 12, 26, 0.8);
+  animation: hero-rise 0.8s var(--ease) 0.24s both;
 }
 
 .hero-stats {
@@ -307,6 +353,36 @@ a:focus-visible {
   margin: 1.8rem 0 0;
   gap: 2rem;
   list-style: none;
+  animation: hero-rise 0.8s var(--ease) 0.34s both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes line-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes title-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .hero-stats li {
@@ -337,10 +413,13 @@ a:focus-visible {
   flex-wrap: wrap;
   margin-top: 2.2rem;
   gap: 0.75rem;
+  animation: hero-rise 0.8s var(--ease) 0.44s both;
 }
 
 .btn {
   display: inline-flex;
+  position: relative;
+  overflow: hidden;
   align-items: center;
   padding: 0.72rem 1.3rem;
   border: 1px solid transparent;
@@ -359,6 +438,20 @@ a:focus-visible {
   background: var(--teal);
   color: #062420;
   box-shadow: 0 8px 28px -8px rgba(134, 227, 207, 0.6);
+}
+
+.btn-primary::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.55) 50%, transparent 75%);
+  transform: translateX(-130%);
+  transition: transform 650ms var(--ease);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(130%);
 }
 
 .btn-primary:hover {
@@ -418,8 +511,29 @@ a:focus-visible {
 }
 
 .bg-dots button[aria-current="true"] {
-  width: 26px;
-  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  width: 30px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.bg-dots button[aria-current="true"]::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  transform-origin: left;
+  animation: dot-progress 4.5s linear forwards;
+}
+
+@keyframes dot-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .bg-dots button:focus-visible {
@@ -530,6 +644,37 @@ a:focus-visible {
   height: 1px;
   content: "";
   background: linear-gradient(90deg, var(--line-strong), transparent);
+  transform-origin: left;
+  transition: transform 750ms var(--ease) 160ms;
+}
+
+.js-anim .reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.985);
+  transition:
+    opacity 620ms var(--ease) var(--delay, 0ms),
+    transform 620ms var(--ease) var(--delay, 0ms),
+    box-shadow 220ms var(--ease),
+    background 220ms var(--ease);
+}
+
+.js-anim .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.js-anim .project-card.reveal.is-visible:hover,
+.js-anim .game-card.reveal.is-visible:hover {
+  transform: translateY(-4px);
+  transition: transform 200ms var(--ease), box-shadow 220ms var(--ease), background 220ms var(--ease);
+}
+
+.js-anim .section-heading.reveal > p:last-child::after {
+  transform: scaleX(0);
+}
+
+.js-anim .section-heading.reveal.is-visible > p:last-child::after {
+  transform: scaleX(1);
 }
 
 /* ---------- Cards (shared) ---------- */
@@ -547,6 +692,28 @@ a:focus-visible {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), background 220ms var(--ease);
+}
+
+.project-card::after,
+.game-card::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(134, 227, 207, 0.15),
+    rgba(240, 140, 192, 0.06) 45%,
+    transparent 72%
+  );
+  transition: opacity 260ms var(--ease);
+}
+
+.project-card:hover::after,
+.game-card:hover::after {
+  opacity: 1;
 }
 
 .project-card:hover,
@@ -598,6 +765,16 @@ a:focus-visible {
   font-weight: 800;
   line-height: 1;
   -webkit-text-stroke: 1px rgba(134, 227, 207, 0.7);
+  transition: filter 240ms var(--ease), transform 240ms var(--ease);
+}
+
+.project-card:hover .project-no {
+  transform: translateX(2px);
+  filter: drop-shadow(0 0 10px rgba(134, 227, 207, 0.55));
+}
+
+.project-card-featured:hover .project-no {
+  filter: drop-shadow(0 0 10px rgba(240, 140, 192, 0.65));
 }
 
 .project-card-featured .project-no {
@@ -670,6 +847,12 @@ a:focus-visible {
   font-family: var(--font-ui);
   font-size: 0.68rem;
   line-height: 1.5;
+  transition: background-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.project-card:hover .tag-list span {
+  background: rgba(134, 227, 207, 0.16);
+  color: #e4fff8;
 }
 
 .project-link,
@@ -958,5 +1141,9 @@ a:focus-visible {
   .site-header {
     animation: none;
     background: rgba(4, 14, 30, 0.78);
+  }
+
+  .ambient-particles {
+    display: none;
   }
 }
