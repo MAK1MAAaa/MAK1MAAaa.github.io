@@ -13,14 +13,16 @@
     <a class="skip-link" href="#main-content">跳到主要内容</a>
 
     <div class="bg-slideshow" aria-hidden="true">
-      <div class="bg-slide is-active" style="background-image: url('assets/bg/card_1005_normal.jpg')"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_1034_trained.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_1171_trained.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_1416_normal.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_1448_trained.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_269_trained.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_701_normal.jpg"></div>
-      <div class="bg-slide" data-bg="assets/bg/card_934_normal.jpg"></div>
+      <div class="bg-stage">
+        <div class="bg-slide is-active" style="background-image: url('assets/bg/card_1005_normal.jpg'); --pos-x: 50%; --pos-y: 25%; --m-x: 62%; --m-y: 30%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_1034_trained.jpg" style="--pos-x: 50%; --pos-y: 25%; --m-x: 34%; --m-y: 35%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_1171_trained.jpg" style="--pos-x: 50%; --pos-y: 25%; --m-x: 30%; --m-y: 28%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_1416_normal.jpg" style="--pos-x: 50%; --pos-y: 25%; --m-x: 51%; --m-y: 28%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_1448_trained.jpg" style="--pos-x: 50%; --pos-y: 25%; --m-x: 38%; --m-y: 40%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_269_trained.jpg" style="--pos-x: 50%; --pos-y: 55%; --m-x: 51%; --m-y: 58%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_701_normal.jpg" style="--pos-x: 50%; --pos-y: 35%; --m-x: 46%; --m-y: 40%;"></div>
+        <div class="bg-slide" data-bg="assets/bg/card_934_normal.jpg" style="--pos-x: 50%; --pos-y: 25%; --m-x: 37%; --m-y: 25%;"></div>
+      </div>
     </div>
 
     <header class="site-header" id="top">
@@ -54,6 +56,7 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#projects">浏览项目 <span aria-hidden="true">↓</span></a>
           <a class="btn btn-ghost" href="https://github.com/MAK1MAAaa" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          <button class="btn btn-ghost tilt-toggle" type="button" hidden>开启体感壁纸</button>
         </div>
       </div>
       <div class="bg-dots" role="group" aria-label="切换背景图"></div>
@@ -263,6 +266,136 @@
         dots[0].setAttribute("aria-current", "true");
         load(1);
         restart();
+
+        /* Perspective parallax: gyroscope on mobile, touch fallback, subtle mouse on desktop */
+        var stage = document.querySelector(".bg-stage");
+        var tiltBtn = document.querySelector(".tilt-toggle");
+        if (!stage || reduceMotion) return;
+
+        var targetX = 0;
+        var targetY = 0;
+        var curX = 0;
+        var curY = 0;
+        var rafId = 0;
+        var gyroActive = false;
+        var baseBeta = null;
+        var baseGamma = null;
+
+        function clamp(v, min, max) {
+          return v < min ? min : v > max ? max : v;
+        }
+
+        function tick() {
+          curX += (targetX - curX) * 0.08;
+          curY += (targetY - curY) * 0.08;
+          var isMobile = window.innerWidth <= 760;
+          var maxX = isMobile ? window.innerWidth * 0.18 : window.innerWidth * 0.022;
+          var maxY = isMobile ? window.innerHeight * 0.045 : window.innerHeight * 0.022;
+          stage.style.transform =
+            "translate3d(" + (curX * maxX).toFixed(2) + "px," + (curY * maxY).toFixed(2) + "px,0)";
+          if (Math.abs(targetX - curX) > 0.001 || Math.abs(targetY - curY) > 0.001) {
+            rafId = requestAnimationFrame(tick);
+          } else {
+            rafId = 0;
+          }
+        }
+
+        function wake() {
+          if (!rafId) rafId = requestAnimationFrame(tick);
+        }
+
+        function onOrientation(e) {
+          if (e.gamma === null || e.beta === null) return;
+          gyroActive = true;
+          var angle = (screen.orientation && screen.orientation.angle) || window.orientation || 0;
+          var g = e.gamma;
+          var b = e.beta;
+          if (angle === 90) {
+            var t1 = g;
+            g = b;
+            b = -t1;
+          } else if (angle === -90 || angle === 270) {
+            var t2 = g;
+            g = -b;
+            b = t2;
+          }
+          if (baseBeta === null) {
+            baseBeta = clamp(b, 15, 80);
+            baseGamma = clamp(g, -15, 15);
+          } else {
+            baseBeta += (clamp(b, 15, 80) - baseBeta) * 0.004;
+            baseGamma += (clamp(g, -15, 15) - baseGamma) * 0.004;
+          }
+          targetX = clamp((g - baseGamma) / 28, -1, 1);
+          targetY = clamp((b - baseBeta) / 28, -1, 1);
+          wake();
+        }
+
+        function startGyro() {
+          window.addEventListener("deviceorientation", onOrientation, true);
+        }
+
+        var isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        if (isTouch && typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+          if (tiltBtn) {
+            tiltBtn.hidden = false;
+            tiltBtn.addEventListener("click", function () {
+              DeviceOrientationEvent.requestPermission()
+                .then(function (state) {
+                  if (state === "granted") {
+                    startGyro();
+                    tiltBtn.textContent = "体感已开启";
+                    tiltBtn.disabled = true;
+                    setTimeout(function () {
+                      tiltBtn.hidden = true;
+                    }, 1200);
+                  } else {
+                    tiltBtn.textContent = "未授予权限";
+                  }
+                })
+                .catch(function () {
+                  tiltBtn.hidden = true;
+                });
+            });
+          }
+        } else if (isTouch && typeof DeviceOrientationEvent !== "undefined") {
+          startGyro();
+        }
+
+        /* Touch-drag & scroll fallback when gyro is unavailable or not yet enabled */
+        if (isTouch) {
+          var touchStartX = 0;
+          var touchBaseX = 0;
+          window.addEventListener(
+            "touchstart",
+            function (e) {
+              if (gyroActive || !e.touches.length) return;
+              touchStartX = e.touches[0].clientX;
+              touchBaseX = targetX;
+            },
+            { passive: true }
+          );
+          window.addEventListener(
+            "touchmove",
+            function (e) {
+              if (gyroActive || !e.touches.length) return;
+              var dx = (e.touches[0].clientX - touchStartX) / (window.innerWidth * 0.6);
+              targetX = clamp(touchBaseX + dx, -1, 1);
+              wake();
+            },
+            { passive: true }
+          );
+        } else if (window.matchMedia("(pointer: fine)").matches) {
+          window.addEventListener(
+            "pointermove",
+            function (e) {
+              targetX = clamp((0.5 - e.clientX / window.innerWidth) * 2, -1, 1);
+              targetY = clamp((0.5 - e.clientY / window.innerHeight) * 2, -1, 1);
+              wake();
+            },
+            { passive: true }
+          );
+        }
       })();
     </script>
   </body>
