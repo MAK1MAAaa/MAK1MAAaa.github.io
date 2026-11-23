@@ -4,13 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#050f1f" />
-    <link rel="preload" as="image" href="assets/site-background.jpg" />
+    <link rel="preload" as="image" href="assets/bg/card_1005_normal.jpg" />
     <meta name="description" content="MAK1MAAaa 的公开项目与游戏记录。" />
     <title>MAK1MAAaa · 项目与游戏</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="bg-slideshow" aria-hidden="true">
+      <div class="bg-slide is-active" style="background-image: url('assets/bg/card_1005_normal.jpg')"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_1034_trained.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_1171_trained.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_1416_normal.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_1448_trained.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_269_trained.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_701_normal.jpg"></div>
+      <div class="bg-slide" data-bg="assets/bg/card_934_normal.jpg"></div>
+    </div>
 
     <header class="site-header" id="top">
       <div class="header-inner">
@@ -20,6 +31,7 @@
             <strong>MAK1MAAaa</strong>
             <small>项目与游戏</small>
           </span>
+          <img class="brand-badge" src="assets/TOP20_7118.png" width="380" height="80" alt="TOP20 称号" />
         </a>
 
         <nav class="site-nav" aria-label="页面导航">
@@ -37,13 +49,14 @@
         <p class="hero-lead">公开项目与常玩游戏的记录。</p>
         <ul class="hero-stats" aria-label="页面概览">
           <li><strong>04</strong><span>项目</span></li>
-          <li><strong>09</strong><span>游戏</span></li>
+          <li><strong>04</strong><span>游戏</span></li>
         </ul>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#projects">浏览项目 <span aria-hidden="true">↓</span></a>
           <a class="btn btn-ghost" href="https://github.com/MAK1MAAaa" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
+      <div class="bg-dots" role="group" aria-label="切换背景图"></div>
       <a class="scroll-cue" href="#projects" aria-label="向下滚动到项目"><span></span></a>
     </section>
 
@@ -166,10 +179,10 @@
           </article>
 
           <article class="game-card">
-            <span class="game-type">街机音乐游戏</span>
-            <h3>オンゲキ</h3>
-            <p>使用摇杆和按键操作的世嘉街机音乐游戏。</p>
-            <a class="game-link" href="https://ongeki.sega.jp/index.html" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
+            <span class="game-type">音乐游戏</span>
+            <h3>Arcaea</h3>
+            <p>lowiro 开发的移动端节奏游戏。</p>
+            <a class="game-link" href="https://arcaea.lowiro.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
           </article>
 
           <article class="game-card">
@@ -177,41 +190,6 @@
             <h3>プロジェクトセカイ</h3>
             <p>包含剧情、节奏游戏、3DMV 和虚拟 Live 的移动端音游。</p>
             <a class="game-link" href="https://pjsekai.sega.jp/system/index.html" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="game-card">
-            <span class="game-type">节奏游戏</span>
-            <h3>vivid/stasis</h3>
-            <p>结合剧情的节奏游戏，提供多种难度和自定义选项。</p>
-            <a class="game-link" href="https://store.steampowered.com/app/2093940/" target="_blank" rel="noopener noreferrer">页面 <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="game-card">
-            <span class="game-type">弹幕 Roguelike</span>
-            <h3>Enter the Gungeon</h3>
-            <p>以射击、翻滚和随机地牢为核心的弹幕地牢游戏。</p>
-            <a class="game-link" href="https://enterthegungeon.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="game-card">
-            <span class="game-type">魔法 Roguelite</span>
-            <h3>Noita</h3>
-            <p>每个像素都参与物理模拟的魔法 Roguelite。</p>
-            <a class="game-link" href="https://noitagame.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="game-card">
-            <span class="game-type">动作 Roguelike</span>
-            <h3>Dungreed</h3>
-            <p>横版 Roguelike 地牢动作游戏。</p>
-            <a class="game-link" href="https://teamhoray.com/games/dungreed" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="game-card">
-            <span class="game-type">平台游戏</span>
-            <h3>Celeste</h3>
-            <p>围绕登顶 Celeste Mountain 的高精度平台游戏。</p>
-            <a class="game-link" href="https://www.celestegame.com/" target="_blank" rel="noopener noreferrer">官网 <span aria-hidden="true">↗</span></a>
           </article>
 
           <article class="game-card">
@@ -231,5 +209,61 @@
         </div>
       </footer>
     </main>
+    <script>
+      (function () {
+        var slides = Array.prototype.slice.call(document.querySelectorAll(".bg-slide"));
+        var dotsWrap = document.querySelector(".bg-dots");
+        if (slides.length < 2) return;
+
+        var INTERVAL = 4500;
+        var current = 0;
+        var timer = null;
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function load(i) {
+          var s = slides[i];
+          if (s && s.dataset.bg) {
+            s.style.backgroundImage = "url('" + s.dataset.bg + "')";
+            s.removeAttribute("data-bg");
+          }
+        }
+
+        var dots = slides.map(function (_, i) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("aria-label", "背景 " + (i + 1));
+          b.addEventListener("click", function () {
+            show(i);
+            restart();
+          });
+          dotsWrap.appendChild(b);
+          return b;
+        });
+
+        function show(i) {
+          load(i);
+          load((i + 1) % slides.length); // preload next
+          slides[current].classList.remove("is-active");
+          dots[current].removeAttribute("aria-current");
+          current = i;
+          slides[current].classList.add("is-active");
+          dots[current].setAttribute("aria-current", "true");
+        }
+
+        function next() {
+          show((current + 1) % slides.length);
+        }
+
+        function restart() {
+          clearInterval(timer);
+          if (!reduceMotion && !document.hidden) timer = setInterval(next, INTERVAL);
+        }
+
+        document.addEventListener("visibilitychange", restart);
+        dots[0].setAttribute("aria-current", "true");
+        load(1);
+        restart();
+      })();
+    </script>
   </body>
 </html>

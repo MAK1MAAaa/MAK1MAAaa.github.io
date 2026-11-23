@@ -12,6 +12,7 @@
   --teal: #86e3cf;
   --pink: #f08cc0;
   --lilac: #c9b8f0;
+  --sky: #8ec5ff;
   --content-width: 1120px;
   --radius: 14px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -41,13 +42,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Fixed artwork layer — works on iOS where background-attachment: fixed does not */
-body::before {
+/* Fixed background slideshow — crossfade + slow zoom */
+.bg-slideshow {
   position: fixed;
   z-index: -1;
   inset: 0;
+  overflow: hidden;
+  background: var(--ocean);
+}
+
+.bg-slideshow::after {
+  position: absolute;
+  inset: 0;
   content: "";
-  background: url("assets/site-background.jpg") center 30% / cover no-repeat;
+  background: rgba(4, 12, 26, 0.18);
+}
+
+.bg-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s var(--ease), transform 6s linear;
+}
+
+.bg-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 ::selection {
@@ -144,6 +168,19 @@ a:focus-visible {
 
 .brand:hover .brand-mark {
   transform: rotate(90deg);
+}
+
+.brand-badge {
+  display: block;
+  width: auto;
+  height: 30px;
+  margin-left: 0.2rem;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+  transition: transform 220ms var(--ease);
+}
+
+.brand:hover .brand-badge {
+  transform: translateY(-1px) scale(1.03);
 }
 
 .brand-copy {
@@ -332,6 +369,40 @@ a:focus-visible {
 .btn-ghost:hover {
   border-color: var(--pink);
   background: rgba(240, 140, 192, 0.12);
+}
+
+.bg-dots {
+  display: flex;
+  position: absolute;
+  right: max(24px, calc((100% - var(--content-width)) / 2));
+  bottom: 2.2rem;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.bg-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: width 300ms var(--ease), background-color 300ms var(--ease);
+}
+
+.bg-dots button:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.bg-dots button[aria-current="true"] {
+  width: 26px;
+  background: var(--teal);
+}
+
+.bg-dots button:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
 }
 
 .scroll-cue {
@@ -636,7 +707,7 @@ a:focus-visible {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -647,14 +718,19 @@ a:focus-visible {
   overflow: hidden;
 }
 
-.game-card:nth-child(3n + 2) {
+.game-card:nth-child(4n + 2) {
   --accent: var(--pink);
   --accent-rgb: 240, 140, 192;
 }
 
-.game-card:nth-child(3n) {
+.game-card:nth-child(4n + 3) {
   --accent: var(--lilac);
   --accent-rgb: 201, 184, 240;
+}
+
+.game-card:nth-child(4n) {
+  --accent: var(--sky);
+  --accent-rgb: 142, 197, 255;
 }
 
 .game-card::before {
@@ -751,42 +827,20 @@ a:focus-visible {
   .game-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .game-card:nth-child(n) {
-    --accent: var(--teal);
-    --accent-rgb: 134, 227, 207;
-  }
-
-  .game-card:nth-child(4n + 2),
-  .game-card:nth-child(4n + 3) {
-    --accent: var(--pink);
-    --accent-rgb: 240, 140, 192;
-  }
 }
 
 @media (max-width: 760px) {
   .project-grid,
   .game-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .game-card:nth-child(n) {
-    --accent: var(--teal);
-    --accent-rgb: 134, 227, 207;
+  .bg-slide {
+    background-position: 42% center;
   }
 
-  .game-card:nth-child(3n + 2) {
-    --accent: var(--pink);
-    --accent-rgb: 240, 140, 192;
-  }
-
-  .game-card:nth-child(3n) {
-    --accent: var(--lilac);
-    --accent-rgb: 201, 184, 240;
-  }
-
-  body::before {
-    background-position: 38% center;
+  .brand-badge {
+    height: 24px;
   }
 
   .hero {
@@ -811,7 +865,25 @@ a:focus-visible {
   }
 
   .site-nav a {
-    padding: 0.35rem 0.6rem;
+    padding: 0.35rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .site-nav {
+    gap: 0;
+  }
+
+  .brand {
+    gap: 0.6rem;
+  }
+
+  .brand-badge {
+    height: 21px;
+    margin-left: 0;
+  }
+
+  .bg-dots {
+    right: 18px;
   }
 
   .site-nav .nav-github {
